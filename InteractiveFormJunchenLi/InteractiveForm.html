@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--[if lt IE 6]>
+		<script>window.location="legacy.html"</script>
+    <![endif]-->
+
+    <title>Choose Your Pokemon!</title>
+    <meta name="Jesseli" content="BBEdit 12.5" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- insure response of CSS will work on mobile devices -->
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <!--[if lte IE 8]> <link rel="stylesheet" type="text/css" href="ie.css" /> <![endif]-->
+
+
+
+    <script type="text/javascript" src="cookies.js"></script>
+
+
+    <script>
+        var type = new Object();
+        type['0'] = ["Please selecte first Type", 'Grass', 'Sire', 'Water'];
+        type['01'] = ["Please selecte second Type", "Bug", "Flying", "Pison"];
+        type['02'] = ["Please selecte second Type", "Dark", "Flying", "Fighting"];
+        type['03'] = ["Please selecte second Type", "Ice", "Psychic", "Rock"];
+        type['011'] = ["Please selecte your pokemon", "Caterpie", "Metapod", "Weedle"];
+        type['012'] = ["Please selecte your pokemon", "Butterfree", "Jumpluff", "Venomoth"];
+        type['013'] = ["Please selecte your pokemon", "Bulbasaur", "Ivysaur", "Venusaur"];
+        type['021'] = ["Please selecte your pokemon", "Houndoom", "Houndour", "Incineroar"];
+        type['022'] = ["Please selecte your pokemon", "Charizard", "Ho-Oh", "Moltres"];
+        type['023'] = ["Please selecte your pokemon", "Blaziken", "Combusken", "Monferno"];
+        type['031'] = ["Please selecte your pokemon", "Cloyster", "Dewgong", "Lapras"];
+        type['032'] = ["Please selecte your pokemon", "Slowbro", "Slowpoke", "Starmie"];
+        type['033'] = ["Please selecte your pokemon", "Kabutops", "Omanyte", "Omastar"];
+
+        var pokemon = new Object();
+        pokemon['011'] = ['Pokemon/Grass&Bug/Caterpie.png', 'Pokemon/Grass&Bug/Metapod.png', 'Pokemon/Grass&Bug/Weedle.png'];
+        pokemon['012'] = ['Pokemon/Grass&Flying/Butterfree.png', 'Pokemon/Grass&Flying/Jumpluff.png', 'Pokemon/Grass&Flying/Venomoth.png'];
+        pokemon['013'] = ['Pokemon/Grass&Poison /Bulbasaur.png', 'Pokemon/Grass&Poison /Ivysaur.png', 'Pokemon/Grass&Poison /Venusaur.png'];
+        pokemon['021'] = ['Pokemon/Fire&Dark/Houndoom.png', 'Pokemon/Fire&Dark/Houndour.png', 'Pokemon/Fire&Dark/Incineroar.png'];
+        pokemon['022'] = ['Pokemon/Fire&Flying/Charizard.png', 'Pokemon/Fire&Flying/Ho-Oh.png', 'Pokemon/Fire&Flying/Moltres.png'];
+        pokemon['023'] = ['Pokemon/Fire$Fighting/Blaziken.png', 'Pokemon/Fire$Fighting/Combusken.png', 'Pokemon/Fire$Fighting/Monferno.png'];
+        pokemon['031'] = ['Pokemon/Warter&Ice/Cloyster.png', 'Pokemon/Warter&Ice/Dewgong.png', 'Pokemon/Warter&Ice/Lapras.png'];
+        pokemon['032'] = ['Pokemon/Warter&Psychic/Slowbro.png', 'Pokemon/Warter&Psychic/Slowpoke.png', 'Pokemon/Warter&Psychic/Starmie.png'];
+        pokemon['033'] = ['Pokemon/Warter&Rock/Kabutops.png', 'Pokemon/Warter&Rock/Omanyte.png', 'Pokemon/Warter&Rock/Omastar.png'];
+
+        var src = new Array; //stores selected pokemon image url.
+        var history = new Array; //stores selected pokemon history
+
+
+
+        function $(id) {
+            return document.getElementById(id);
+        }
+
+        function $$(tag, w) {
+            return document.getElementsByTagName(tag)[w];
+        }
+
+
+        // ----------------Store selected image info in the Cookies and Localstorage---------------
+
+        function addToCollection() {
+            // $('final').addEventListener("click", readHistory()); // store the selecting history in the localStorage
+            var pic = document.getElementById('result').getElementsByTagName('img')[0];
+            // no ie7 var selected = $$('h2', 3).textContent;
+            var selected = $$('h2', 3).innerText;
+
+
+            // $('cllebutton').onMouseover = shakeleft();
+            // $('cllebutton').onmouseout = stoptimer();
+            //$('final').addEventListener("mouseout", stoptimer(), true);
+
+            for (var i = 0; i <= src.length; i++) {
+
+                if (src[i] == undefined) {
+                    // copy image and result from result div to collecetion div
+                    src[i] = pic.src;
+                    history[i] = selected;
+                    var cln = pic.cloneNode(true);
+                    $('collection').appendChild(cln);
+
+                    var hist = document.createElement('p');
+                    var t = document.createTextNode(selected);
+                    hist.appendChild(t);
+                    $('histories').appendChild(hist);
+
+
+                    var cookieName1 = "collection" + i;
+                    createCookie(cookieName1, src[i], 7);
+                    createCookie("numberOfCollection", src.length, 7);
+
+
+                    var cookieName2 = "history" + i;
+                    createCookie(cookieName2, history[i], 7);
+                    createCookie("numberOfCollection", src.length, 7);
+
+                    if (window.localStorage) {
+                        localStorage.setItem(cookieName1, src[i]);
+                        localStorage.setItem("numberOfCollection", src.length);
+                        localStorage.setItem(cookieName2, history[i]);
+
+                    }
+
+                    break;
+                }
+
+
+            }
+        }
+
+        // ----------------Use localstorage to read history ---------------
+
+
+        function readHistory() {
+            //if localstorage can be used
+            if (window.localStorage) {
+                if (localStorage.getItem('numberOfCollection')) {
+                    numb = localStorage.getItem('numberOfCollection') - 1;
+                    for (var i = 0; i <= numb; i++) {
+                        //add history
+                        var keyName1 = 'history' + i;
+                        var t = document.createTextNode(localStorage.getItem(keyName1));
+                        var hist = document.createElement('p');
+                        hist.appendChild(t);
+                        $('histories').appendChild(hist);
+                        //add collection image
+
+                        var keyName2 = "collection" + i;
+                        var x = localStorage.getItem(keyName2);
+                        if (x) {
+
+                            var newImg = document.createElement('img');
+                            // not IE7 newImg.setAttribute('src', x);
+                            newImg.src = x;
+                            $('collection').appendChild(newImg);
+                        }
+
+
+                    }
+
+                }
+            } else {
+                cookiesHistory()
+
+            }
+        }
+
+
+        // -----------Use Cookies to read selected images info and display the image---------------
+
+        function cookiesHistory() {
+
+            var numbOfCol = readCookie("numberOfCollection");
+            for (var i = 0; i < numbOfCol; i++) {
+                var cookieName = "collection" + i;
+                var x = readCookie(cookieName);
+
+                if (x) {
+                    var newImg = document.createElement('img');
+                    // IE 7 no newImg.setAttribute('src', x);
+                    newImg.src = x;
+                    $('collection').appendChild(newImg);
+                }
+                var cookieName2 = 'history' + i;
+                var t = readCookie(cookieName2);
+                var hist = document.createElement('p');
+                hist.appendChild(t);
+                $('histories').appendChild(hist);
+            }
+        }
+
+        //---------- Dynamic Build Selection & Result & Add Pokemon to Collection------------------//
+
+        function result(value) {
+            var len = value.length;
+
+            //------------------result of first selection---------------
+            if (len == 2) {
+                for (i = 1; i <= 3; i++) {
+                    for (j = 0; j <= 2; j++) {
+
+                        var newImg = document.createElement('img');
+
+                        //not ie7 newImg.setAttribute('src', pokemon[value + i][j]);
+                        newImg.src = pokemon[value + i][j];
+
+                        $('result').appendChild(newImg);
+                    }
+                }
+                //------------------result of Second selection---------------
+
+            } else if (len == 3) {
+                for (i = 0; i <= 2; i++) {
+                    var newImg = document.createElement('img');
+
+                    //not IE7 newImg.setAttribute('src', pokemon[value][i]);
+                    newImg.src = pokemon[value][i];
+
+                    $('result').appendChild(newImg);
+                }
+                //------------------result of Final selection---------------
+
+            } else {
+                // can't treating a string as an array in ie6 and 7.
+                // serial = value[0] + value[1] + value[2];
+
+                serial = value.charAt(0) + value.charAt(1) + value.charAt(2);
+
+
+                i = value.charAt(3);
+
+                var newImg = document.createElement('img');
+                var newButton = document.createElement('button') // create a button to add choosen pockman to the collection
+
+                var p = document.createElement('h2');
+                var t = document.createTextNode("You chose " + type[serial][i]);
+                var tb = document.createTextNode("Add to your collection"); // Create a text node
+                //newImg.setAttribute('src', pokemon[serial][i - 1]);
+                newImg.src = pokemon[serial][i - 1];
+                newImg.id = "final";
+                // newImg.setAttribute('id', 'final');
+
+                //newButton.setAttribute('type', 'button');
+                //newButton.setAttribute('id', 'cllebutton');
+                // newButton.setAttribute('onclick', 'addToCollection()');
+
+                //no ie 7 newButton.type="button";
+                newButton.id = "cllebutton";
+                newButton.onclick = function() {
+                    addToCollection()
+                };
+
+                $('result').appendChild(p);
+                p.appendChild(t);
+
+                $('result').appendChild(newImg);
+                $('result').appendChild(newButton);
+                newButton.appendChild(tb);
+            }
+
+        }
+
+        function removeAll(selection) {
+            //---------------clean selection--------------- 
+            while (selection != selection.parentNode.lastChild) {
+                selection.parentNode.removeChild(selection.parentNode.lastChild);
+            }
+
+            //----------------clean result-----------------------------
+
+            var obj = document.getElementById('result').getElementsByTagName('img')[0];
+            var objh = document.getElementById('result').getElementsByTagName('h2')[0];
+
+            if (obj != undefined && objh != undefined) { //if result div has <img> and <h2> 
+
+                while (obj != obj.parentNode.lastChild) {
+                    obj.parentNode.removeChild(obj.parentNode.lastChild);
+                }
+                obj.parentNode.removeChild(obj.parentNode.lastChild); // remove last img
+                objh.parentNode.removeChild(objh.parentNode.lastChild); //remove h2
+
+            } else if (obj != undefined && objh == undefined) { //if result has <img> but no <h2> 
+                while (obj != obj.parentNode.lastChild) {
+                    obj.parentNode.removeChild(obj.parentNode.lastChild);
+                }
+                obj.parentNode.removeChild(obj.parentNode.lastChild);
+            }
+        }
+
+        function creatOption(newSelect, selection) {
+            for (var i = 0; i <= 3; i++) {
+                var opt = document.createElement('option');
+
+                if (i == 0) {
+                    opt.value = "none";
+                    opt.text = type[selection][i];
+                } else {
+                    opt.value = selection + i;
+                    opt.text = type[selection][i];
+                }
+
+                //ie7 can't display newSelect.appendChild(opt);
+                newSelect.add(opt);
+
+
+            }
+        }
+
+        function buildAll(selection) {
+
+            var p = document.createElement("h2") // Create a <h2> element for every selection
+            var newSelect = document.createElement('select');
+
+
+            //-------------create the first selection when onloading-----------------
+            if (selection == undefined) {
+                var t = document.createTextNode("Please choose first type"); // Create a text node
+                $('sel').appendChild(p);
+                p.appendChild(t);
+                //not work in IE7 newSelect.setAttribute('onchange', 'buildAll(this)');
+                newSelect.onchange = function() {
+                    buildAll(this)
+                }
+                $('sel').appendChild(newSelect);
+                creatOption(newSelect, "0");
+
+
+
+            }
+            //-----------------create second and third selection-------------------
+            else {
+                var hold = selection.value;
+                removeAll(selection)
+                if (selection == $$('select', 2)) {
+                    //whether the selection is the last one, if so, print the result
+                    result(hold);
+                } else {
+                    if (hold != undefined) {
+                        var newSelect = document.createElement('select');
+                        var t = document.createTextNode("Please keep selecting"); // Create a text node
+                        $('sel').appendChild(p);
+                        p.appendChild(t);
+                        //newSelect.setAttribute('onchange', 'buildAll(this)');
+                        newSelect.onchange = function() {
+                            buildAll(this)
+                        }
+
+                        $('sel').appendChild(newSelect);
+                        creatOption(newSelect, hold);
+                        result(hold);
+                    }
+                }
+
+            }
+        }
+    </script>
+</head>
+
+<body onload="buildAll();readHistory()">
+
+    <div class="selectionPart">
+
+        <div id="sel" class="custom-select" style="width:200px;"></div>
+
+    </div>
+
+
+    <div class="resultPart">
+        <h3>Your result</h3>
+
+        <div id="result"></div>
+
+    </div>
+
+    <div class="collectionPart">
+
+        <h3>Your collection</h3>
+        <div id="collection"></div>
+
+    </div>
+
+    <div class="historyPart">
+
+        <h3>Your histories</h3>
+        <div id="histories"></div>
+    </div>
+
+    </div>
+    </div>
+
+</body>
+
+
+
+
+
+
+
+
+</html>

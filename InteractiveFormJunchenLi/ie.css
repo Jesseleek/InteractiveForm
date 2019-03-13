@@ -1,0 +1,141 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {}
+
+h2 {
+    position: relative;
+    margin: 0em 1em 0em 1em;
+    width: 468px;
+    height: auto;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 24px;
+    color: #ffffff;
+}
+
+h3 {
+    position: relative;
+    margin: 0em 1em 0em 1em;
+    width: 468px;
+    height: auto;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 24px;
+    color: #ffffff;
+}
+
+p {
+    position: relative;
+    margin: 0em 1em 0em 1em;
+    width: 468px;
+    height: auto;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 20px;
+    color: #ffffff;
+}
+
+.custom-select {
+    width: 350px;
+}
+
+.custom-select select {
+    border: 0;
+    margin: 1em;
+    color: #EEE;
+    background: transparent;
+    font-size: 24px;
+    font-weight: normal;
+    padding: 2px 10px;
+    width: 378px;
+    -webkit-appearance: none;
+    -moz-border-radius: 9px 9px 9px 9px;
+    -webkit-border-radius: 9px 9px 9px 9px;
+    border-radius: 9px 9px 9px 9px;
+    box-shadow: 1px 1px 11px #330033;
+    background: #4C966C;
+}
+
+.selectionPart {
+    position: absolute;
+    width: 468px;
+    height: 430px;
+    left: 98px;
+    top: 20px;
+    background: #478A64;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.resultPart {
+    position: absolute;
+    width: 488px;
+    height: 340px;
+    left: 566px;
+    top: 20px;
+    background: #478A64;
+    border: 1px solid #000000;
+}
+
+.historyPart {
+    position: absolute;
+    width: 468px;
+    height: 230px;
+    left: 98px;
+    top: 450px;
+    background: #438461;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+}
+
+.collectionPart {
+    position: absolute;
+    width: 488px;
+    height: 320px;
+    left: 566px;
+    top: 360px;
+    background: #478A64;
+    border: 1px solid #000000;
+}
+
+.row {
+    transform: matrix(1, 0, 0, 1, 0, 0);
+}
+
+img {
+    left: 50px;
+    width: 100px;
+    height: 100px
+}
+
+#cllebutton {
+    float: center;
+    position: absolute;
+    left: 121px;
+    top: 210px;
+    width: 220px;
+    height: 90px;
+    background: #4C966C;
+    font-size: 16px;
+    font-weight: normal;
+    color: rgb(255, 255, 255);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+}
+
+#cllebutton:hover {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
